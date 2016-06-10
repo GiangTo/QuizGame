@@ -1,0 +1,61 @@
+import javax.swing.*;
+import java.awt.event.*;
+
+public class Game
+{
+	private JFrame frame;
+	private JPanel welcome;
+	private JLabel greetings;
+	private Board board;
+	private JButton start, exit;
+	
+	public Game()
+	{
+		frame = new JFrame("Let's Take A Quiz!");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		greetings = new JLabel("Welcome to Let's Take A Quiz! Press Play to begin.");
+		
+		welcome = new JPanel();
+		frame.add(welcome);
+		welcome.setVisible(true);
+		
+		start = new JButton("Play");
+		welcome.add(greetings);
+		welcome.add(start);
+		start.addActionListener(new StartListener());
+		
+		exit = new JButton("Quit");
+		exit.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				System.exit(0);
+			}
+		});
+		
+		frame.pack();
+		frame.setSize(353, 335);
+		frame.setVisible(true);
+	}
+	
+	private class StartListener implements ActionListener
+	{
+		public void actionPerformed (ActionEvent e)
+		{
+			board = new Board();
+			frame.add(board);
+			
+			welcome.setVisible(false);
+			board.setVisible(true);
+			
+			board.add(exit);
+			exit.setVisible(true);
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		new Game();
+	}
+}
